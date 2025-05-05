@@ -1,0 +1,42 @@
+package filmnow;
+
+import java.util.Objects;
+/**
+ * Classe responsável pelos dados privados de um filme.
+ * @author  raissa tainá pordeus ferreira
+**/
+public class 
+Filme {
+	private String nome;
+	private Integer ano;
+	private String local;
+	
+	public Filme(String nome, Integer ano, String local) {
+		this.nome=nome;
+		this.ano=ano;
+		this.local=local;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	public Integer getAno() {
+		return ano;
+	}
+	public String getLocal() {
+		return local;
+	}
+	public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        Filme other = (Filme) obj;
+	        return Objects.equals(ano, other.ano) && Objects.equals(nome, other.nome);
+	}
+	public String toString() {
+		return nome;
+	}
+}
