@@ -1,0 +1,66 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import filmnow.FilmNow;
+import filmnow.Filme;
+
+class FilmNowTest {
+	private FilmNow filme;
+	@BeforeEach
+	void setUp() throws Exception {
+		this.filme = new FilmNow();
+	}
+
+	@Test
+	void testPosicaoVazia() {
+		assertEquals("POSIÇÃO INVÁLIDA", filme.cadastraFilme(null, "Avatar", 2009, "Disney+"));
+	}
+	
+	@Test
+	void testPosicaoExistente() {
+		assertEquals("FILME ADICIONADO", filme.cadastraFilme(1, "Avatar", 2009, "Disney+"));
+	}
+	
+	@Test
+	void testOutraPosicao() {
+		assertEquals("FILME ADICIONADO", filme.cadastraFilme(100, "Avatar", 2009, "Disney+"));
+		assertEquals("FILME JA ADICIONADO", filme.cadastraFilme(1, "Avatar", 2009, "Disney+"));
+	}
+	
+	@Test
+	void testNomeAno() {
+		assertEquals("FILME ADICIONADO", filme.cadastraFilme(100, "Avatar", 2009, "Disney+"));
+		assertEquals("FILME JA ADICIONADO", filme.cadastraFilme(1, "Avatar", 2009, "Disney+"));
+	}
+	
+	@Test
+	void testPosicaoLimite() {
+		assertEquals("FILME ADICIONADO", filme.cadastraFilme(100, "Avatar", 2009, "Disney+"));
+	}
+
+	@Test
+	void testPoicaoAcimaLimite() {
+		assertEquals("POSIÇÃO INVÁLIDA", filme.cadastraFilme(101, "Avatar", 2009, "Disney+"));
+	}
+	@Test
+	void testPoicaoAbaixoLimite() {
+		assertEquals("POSIÇÃO INVÁLIDA", filme.cadastraFilme(0, "Avatar", 2009, "Disney+"));
+	}
+	@Test
+	void testLocalVazio() {
+		assertEquals("FILME INVALIDO", filme.cadastraFilme(1, "Avatar", 2009, ""));
+	}
+	@Test
+	void testAnoVazio() {
+		assertEquals("FILME ADICIONADO", filme.cadastraFilme(1, "Avatar", null, "Disney+"));
+	}
+	void testNomeVazio() {
+		assertEquals("FILME INVALIDO", filme.cadastraFilme(1, "", 2009, "Disney+"));
+	}
+
+}
