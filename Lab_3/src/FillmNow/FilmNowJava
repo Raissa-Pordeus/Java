@@ -1,0 +1,131 @@
+package filmnow;
+
+import java.util.Scanner;
+
+
+/**
+ * Sistema que mantém os seus filmes prediletos. Podem existir 100 filmes. 
+ * 
+ * @author eliane
+ * 
+ * 
+ * Sistema modificado para manipular uma lista de filmes geral e uma HotList.
+ * @author  raissa tainá pordeus ferreira
+ *
+ */
+public class FilmNow {
+	
+	private static final int TAMANHO = 100;
+	
+	private Filme[] filmes; //uma representacao simploria da lista de filmes
+	private Filme[] hots;
+
+	/**
+	 * Cria o FilmNow.
+	 */
+	public FilmNow() {
+		this.filmes = new Filme[TAMANHO];
+		this.hots = new Filme[10];
+	}
+	
+	/**
+	 * Acessa a lista de filmes mantida.
+	 * @return O array de filmes.
+	 */
+	public Filme[] getFilmes() {
+		return this.filmes.clone();
+	}
+	public Filme[] getHots() {
+		return this.hots.clone();
+	}
+
+	/**
+	 * Acessa os dados de um filme específico.
+	 * @param posicao Posição do filme no sistema.
+	 * @return Dados do filme. Null se não há filme na posição.
+	 */
+	public Filme getFilme(Integer posicao) {
+		return filmes[posicao];
+	}
+	public Filme getHots(Integer posicao) {
+		return hots[posicao];
+	}
+
+	/**
+	 * Adiciona um filme em uma posição. Se já existir filme na posição, sobrescreve o anterior. 
+	 * @param posicao Posição do filme.
+	 * @param nome Nome do filme.
+	 * @param ano Ano de lançamento do filme.
+	 * @param local Local onde o filme pode ser assitido.
+	 */
+	public String cadastraFilme(Integer posicao, String nome, Integer ano, String local) {
+		
+		String saida = "FILME ADICIONADO";
+		
+		if (posicao == null) {
+	        return "POSIÇÃO INVÁLIDA";
+	    }
+		if(posicao > 100 || posicao < 1) {
+			return saida = "POSIÇÃO INVÁLIDA";
+		}
+		if (nome == null || nome.trim().isEmpty() || local == null || local.trim().isEmpty()) {
+			return saida = "FILME INVALIDO";
+		}
+		Filme filme = new Filme(nome, ano, local);
+		
+		for(int i = 0; i<filmes.length; i++) {
+			if(filme.equals(filmes[i])) {
+				return saida = "FILME JA ADICIONADO";
+			}
+		}
+		this.filmes[posicao-1] = filme;
+		return saida;
+	}
+	//filme.getAno()
+
+	/**
+	 * Adiciona um filme em uma posição da hotlist. Se já existir filme na posição, sobrescreve o anterior. 
+	 * @param posicaoHotList - posicao do filme na hotList
+	 * @param posicaoFilme - posicao do filme na lista geral de filmes
+	 */
+	public void cadastraHot(Integer posicaoHotlist, Integer posicaoFilme){
+		
+		if(posicaoHotlist < 0 || posicaoHotlist>hots.length){
+			System.out.println("POSICAO INVÁLIDA");
+		}
+		if(filmes[posicaoFilme] == null){
+			System.out.println("FILME INVÁLIDO");
+		}
+		hots[posicaoHotlist] = filmes[posicaoFilme];
+	}
+	
+	public void removeHot(Integer posicaoHotlist){
+		if(posicaoHotlist < 0 || posicaoHotlist>hots.length){
+			System.out.println("POSICAO INVÁLIDA");
+		}
+		hots[posicaoHotlist] = null;
+	}
+
+	/**
+	 * Formata um filme para impressão. 
+	 * 
+	 * @param posicao A posição do filme (que é exibida)/
+	 * @param filmes O filme a ser impresso.
+	 * @return A String formatada.
+	 */
+	public String formataFilme(Integer posicao, Filme filmes) {
+		return posicao+1 + " - " + filmes.toString();
+	}
+	
+	/**
+	 * Formata um filme para impressão da HotList. 
+	 * 
+	 * @param posicao A posição do filme (que é exibida)/
+	 * @param filmes O filme a ser impresso.
+	 * @return A String formatada.
+	 */
+	public String formataFilme_(Integer posicao, Filme filmes) {
+		return posicao + " - " + filmes.toString();
+	}
+
+}
